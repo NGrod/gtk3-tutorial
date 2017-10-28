@@ -4,6 +4,12 @@ static void destroy(GtkWidget *widget, gpointer data)
 {
     gtk_main_quit();
 }
+static gboolean ShowRow(GtkListbox *box, gpointer data )
+{
+    GtkListBoxRow *selected_row;
+    selected_row = gtk_list_box_get_selected_row(box);
+    printf("%d ",gtk_list_box_row_get_index(selected_row));
+}
 
 int main(int argc, char *argv[])
 {
@@ -26,7 +32,7 @@ int main(int argc, char *argv[])
         GtkWidget *label = gtk_label_new(name);
         gtk_container_add(GTK_CONTAINER(listbox), label);
     }
-
+    g_signal_connect(listbox,"row-selected",G_CALLBACK(ShowRow),NULL);
     gtk_widget_show_all(window);
 
     gtk_main();
